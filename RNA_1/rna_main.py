@@ -24,9 +24,13 @@ features = features.replace(np.nan, 0, regex=True)
 X = features[['q1', 'q2', 'q3', 'q4', 'q5', 'mis1', 'mis2', 'mis3', 'mis4', 'mis5']].astype(float)
 Y = features['sample'].astype(int)
 
+print(X)
+from sklearn.preprocessing import MinMaxScaler
+sc = MinMaxScaler(feature_range=(0,1))
+X = sc.fit_transform(X)
+print(X)
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.25, shuffle=True)
-
-clf = RandomForestClassifier(n_estimators=50)
+clf = RandomForestClassifier(n_estimators=80)
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 
